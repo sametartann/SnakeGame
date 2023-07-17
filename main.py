@@ -37,6 +37,22 @@ def draw_food(food_position):
 def get_random_position():
     return random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1)
 
+def game_over_screen():
+    font = pygame.font.Font(None, 50)
+    text = font.render("Game Over! Press any key to restart.", True, WHITE)
+    text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    screen.blit(text, text_rect)
+    pygame.display.update()
+
+    waiting_for_keypress = True
+    while waiting_for_keypress:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            elif event.type == pygame.KEYDOWN:
+                waiting_for_keypress = False
+
 def main():
     snake = [(GRID_WIDTH // 2, GRID_HEIGHT // 2)]
     direction = RIGHT
@@ -63,7 +79,11 @@ def main():
         new_head = ((head_x + dx) % GRID_WIDTH, (head_y + dy) % GRID_HEIGHT)
 
         if new_head in snake:
-            game_over = True
+            game_over_screen()
+            snake = [(GRID_WIDTH // 2, GRID_HEIGHT // 2)]
+            direction = RIGHT
+            food_position = get_random_position()
+            game_over = False
 
         snake.insert(0, new_head)
 
