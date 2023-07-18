@@ -65,13 +65,13 @@ def main():
             if event.type == pygame.QUIT:
                 game_over = True
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP and direction != DOWN:
+                if event.key == pygame.K_UP or event.key == pygame.K_w and direction != DOWN:
                     direction = UP
-                elif event.key == pygame.K_DOWN and direction != UP:
+                elif event.key == pygame.K_DOWN or event.key == pygame.K_s and direction != UP:
                     direction = DOWN
-                elif event.key == pygame.K_LEFT and direction != RIGHT:
+                elif event.key == pygame.K_LEFT or event.key == pygame.K_a and direction != RIGHT:
                     direction = LEFT
-                elif event.key == pygame.K_RIGHT and direction != LEFT:
+                elif event.key == pygame.K_RIGHT or event.key == pygame.K_d and direction != LEFT:
                     direction = RIGHT
 
         head_x, head_y = snake[0]
